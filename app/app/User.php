@@ -16,6 +16,12 @@ class User extends Eloquent
 	public $timestamps = false;
 	
 	protected $table = 'user';
+	/**
+	 * Indicates if the IDs are auto-incrementing.
+	 *
+	 * @var bool
+	 */
+	public $incrementing = false;
 	
 	public function roles()
 	{

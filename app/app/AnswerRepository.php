@@ -10,13 +10,13 @@ use DB;
 
 class AnswerRepository
 {
-	public function __construct(int $location_id, int $question_category_id)
+	public function __construct(string $location_id, int $question_category_id)
 	{
 		$this->location_id = $location_id;
 		$this->question_category_id = $question_category_id;
 	}
 	
-	private static function getAnswersForLocation(int $location_id)
+	private static function getAnswersForLocation(string $location_id)
 	{
 		if ( !Session::has('answers_'.$location_id) )
 		{
@@ -33,7 +33,7 @@ class AnswerRepository
 		return $answers;
 	}
 
-	public static function saveAnswer(int $location_id, int $question_id, int $answer_value)
+	public static function saveAnswer(string $location_id, int $question_id, int $answer_value)
 	{
 		// Validate that the corresponding question doesn't have "is_always_required" set when answer_value indicates that 
 		// the question's feature is not required.
@@ -51,12 +51,12 @@ class AnswerRepository
 		Session::put('answers_'.$location_id.'_'.$question_id, $answer_value);
 	}
 	
-	public static function removeAnswer(int $location_id, int $question_id)
+	public static function removeAnswer(string $location_id, int $question_id)
 	{
 		Session::forget('answers_'.$location_id.'_'.$question_id);
 	}
 	
-	public static function getAnswer(int $location_id, int $question_id)
+	public static function getAnswer(string $location_id, int $question_id)
 	{
 		$key = 'answers_'.$location_id.'_'.$question_id;
 		if ( !Session::has($key) )
@@ -66,7 +66,7 @@ class AnswerRepository
 		return Session::get($key);
 	}
 
-	public static function saveComment(int $location_id, int $question_category_id, string $comment)
+	public static function saveComment(string $location_id, int $question_category_id, string $comment)
 	{
 		$key = 'answers_'.$location_id.'_comment_'.$question_category_id;
 		Session::put($key, $comment);
@@ -147,7 +147,7 @@ class AnswerRepository
 	/**
 	Copies answers from session to database
 	*/
-	public static function commitAnswersForLocation(int $location_id)
+	public static function commitAnswersForLocation(string $location_id)
 	{
 		$user_id = BaseUser::getDbUser()->id;
 		$location_key = 'answers_'.$location_id.'_';

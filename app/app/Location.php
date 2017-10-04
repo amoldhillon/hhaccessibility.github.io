@@ -13,6 +13,12 @@ class Location extends Eloquent
 	public $timestamps = false;
 
 	protected $table = 'location';
+	/**
+	 * Indicates if the IDs are auto-incrementing.
+	 *
+	 * @var bool
+	 */
+	public $incrementing = false;
 
 	public function getLocationTagIds()
 	{
